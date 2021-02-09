@@ -11,7 +11,7 @@ namespace Asteroids
         public string windowTitle = "Asteroids";
 
         Player player;
-        Bullet[] bullets = new Bullet[100];
+        Bullet[] bullets = new Bullet[200];
         Asteroid[] asteroids = new Asteroid[100];
 
         float asteroidSpawnCooldown = 4.0f;
@@ -93,6 +93,11 @@ namespace Asteroids
                     DoBulletAsteroidCollision(bullet, asteroid);
                 }
             }
+
+            foreach (var asteoid in asteroids)
+            {
+                DoplayerAsteroidCollision(player, asteoid);
+            }
         }
 
         void Draw()
@@ -120,7 +125,6 @@ namespace Asteroids
 
             Raylib.EndDrawing();
         }
-
 
         public void SpawnBullet(Vector2 pos, Vector2 dir)
         {
@@ -166,6 +170,24 @@ namespace Asteroids
                 {
                     asteroids[i] = asteroid;
                     break;
+                }
+            }
+        }
+
+        void DoplayerAsteroidCollision(Player playerCol, Asteroid asteroid)
+        {
+            if (playerCol == null || asteroid == null)
+                return;
+
+            float distance = (playerCol.pos - asteroid.pos).Length();
+            if (distance < asteroid.radius + player.size.X / 2)
+            {
+                if (asteroid.radius > 10)
+                {
+                    SpawnAsteroid(asteroid.pos, new Vector2(-asteroid.dir.X, asteroid.dir.Y), asteroid.radius / 4);
+                    SpawnAsteroid(asteroid.pos, new Vector2(-asteroid.dir.X,-asteroid.dir.Y), asteroid.radius / 4);
+                    SpawnAsteroid(asteroid.pos, new Vector2( asteroid.dir.X,-asteroid.dir.Y), asteroid.radius / 4);
+                    SpawnAsteroid(asteroid.pos, new Vector2( asteroid.dir.X, asteroid.dir.Y), asteroid.radius / 4);
                 }
             }
         }
