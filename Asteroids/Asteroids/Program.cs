@@ -94,10 +94,10 @@ namespace Asteroids
                 }
             }
 
-            foreach (var asteoid in asteroids)
-            {
-                DoplayerAsteroidCollision(player, asteoid);
-            }
+            //foreach (var asteoid in asteroids)
+            //{
+            //    DoplayerAsteroidCollision(player, asteoid);
+            //}
         }
 
         void Draw()
@@ -174,36 +174,36 @@ namespace Asteroids
             }
         }
 
-        void DoplayerAsteroidCollision(Player playerCol, Asteroid asteroid)
-        {
-            if (playerCol == null || asteroid == null)
-                return;
-
-            float distance = (playerCol.pos - asteroid.pos).Length();
-            if (distance < asteroid.radius + player.size.X / 2)
-            {
-                if (asteroid.radius > 10)
-                {
-                    SpawnAsteroid(asteroid.pos, new Vector2(-asteroid.dir.X, asteroid.dir.Y), asteroid.radius / 4);
-                    SpawnAsteroid(asteroid.pos, new Vector2(-asteroid.dir.X,-asteroid.dir.Y), asteroid.radius / 4);
-                    SpawnAsteroid(asteroid.pos, new Vector2( asteroid.dir.X,-asteroid.dir.Y), asteroid.radius / 4);
-                    SpawnAsteroid(asteroid.pos, new Vector2( asteroid.dir.X, asteroid.dir.Y), asteroid.radius / 4);
-                }
-            }
-        }
+        //void DoplayerAsteroidCollision(Player playerCol, Asteroid asteroid)
+        //{
+        //    if (playerCol == null || asteroid == null)
+        //        return;
+        //
+        //    float distance = (playerCol.position - asteroid.position).Length();
+        //    if (distance < asteroid.radius + player.size.X / 2)
+        //    {
+        //        if (asteroid.radius > 10)
+        //        {
+        //            SpawnAsteroid(asteroid.position, new Vector2(-asteroid.dir.X, asteroid.dir.Y), asteroid.radius / 4);
+        //            SpawnAsteroid(asteroid.position, new Vector2(-asteroid.dir.X,-asteroid.dir.Y), asteroid.radius / 4);
+        //            SpawnAsteroid(asteroid.position, new Vector2( asteroid.dir.X,-asteroid.dir.Y), asteroid.radius / 4);
+        //            SpawnAsteroid(asteroid.position, new Vector2( asteroid.dir.X, asteroid.dir.Y), asteroid.radius / 4);
+        //        }
+        //    }
+        //}
 
         void DoBulletAsteroidCollision(Bullet bullet, Asteroid asteroid)
         {
             if (bullet == null || asteroid == null)
                 return;
 
-            float distance = (bullet.pos - asteroid.pos).Length();
+            float distance = (bullet.position - asteroid.position).Length();
             if (distance < asteroid.radius)
             {
                 if (asteroid.radius > 10)
                 {
-                    SpawnAsteroid(asteroid.pos, asteroid.dir, asteroid.radius / 2);
-                    SpawnAsteroid(asteroid.pos, -asteroid.dir, asteroid.radius / 2);
+                    SpawnAsteroid(asteroid.position, asteroid.direction, asteroid.radius / 2);
+                    SpawnAsteroid(asteroid.position, -asteroid.direction, asteroid.radius / 2);
                 }
 
                 for (int i = 0; i < bullets.Length; i++)

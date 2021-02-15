@@ -6,11 +6,10 @@ using Raylib_cs;
 
 namespace Asteroids
 {
-    class Bullet
+    class Bullet : GameObject
     {
         Program program;
-        public Vector2 pos = new Vector2();
-        public Vector2 dir = new Vector2();
+
         public float speed = 10;
 
         Color color;
@@ -18,11 +17,11 @@ namespace Asteroids
         static Color[] colours = new Color[6] { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PURPLE };
         static int nextColor = 0;
 
-        public Bullet(Program program, Vector2 pos, Vector2 dir)
+        public Bullet(Program program, Vector2 position, Vector2 direction)
         {
             this.program = program;
-            this.pos = pos;
-            this.dir = dir;
+            this.position = position;
+            this.direction = direction;
 
             color = colours[nextColor];
             nextColor += 1;
@@ -32,17 +31,17 @@ namespace Asteroids
 
         public void Update()
         {
-            pos += dir * speed;
+            position += direction * speed;
 
-            if (pos.X < 0) pos.X = program.windowWidth;
-            if (pos.X > program.windowWidth) pos.X = 0;
-            if (pos.Y < 0) pos.Y = program.windowHeight;
-            if (pos.Y > program.windowHeight) pos.Y = 0;
+            if (position.X < 0) position.X = program.windowWidth;
+            if (position.X > program.windowWidth) position.X = 0;
+            if (position.Y < 0) position.Y = program.windowHeight;
+            if (position.Y > program.windowHeight) position.Y = 0;
         }
         public void Draw()
         {
             Program prog = new Program();
-            Raylib.DrawLine((int)pos.X, (int)pos.Y, (int)(pos.X + dir.X * speed), (int)(pos.Y - dir.Y * speed), color);
+            Raylib.DrawLine((int)position.X, (int)position.Y, (int)(position.X + direction.X * speed), (int)(position.Y - direction.Y * speed), color);
         }
     }
 }

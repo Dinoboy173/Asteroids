@@ -6,11 +6,10 @@ using Raylib_cs;
 
 namespace Asteroids
 {
-    class Player
+    class Player : GameObject
     {
         Program program;
 
-        public Vector2 pos = new Vector2();
         public Vector2 size = new Vector2(64, 64);
 
         public float rotation = 0.0f;
@@ -22,7 +21,7 @@ namespace Asteroids
         public Player(Program program, Vector2 pos, Vector2 size)
         {
             this.program = program;
-            this.pos = pos;
+            this.position = pos;
             this.size = size;
         }
 
@@ -46,16 +45,16 @@ namespace Asteroids
                 velocity -= dir * accelerationSpeed;
             }
 
-            pos += velocity;
+            position += velocity;
 
-            if (pos.X < 0) pos.X = program.windowWidth;
-            if (pos.X > program.windowWidth) pos.X = 0;
-            if (pos.Y < 0) pos.Y = program.windowHeight;
-            if (pos.Y > program.windowHeight) pos.Y = 0;
+            if (position.X < 0) position.X = program.windowWidth;
+            if (position.X > program.windowWidth) position.X = 0;
+            if (position.Y < 0) position.Y = program.windowHeight;
+            if (position.Y > program.windowHeight) position.Y = 0;
 
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
-                program.SpawnBullet(pos, GetFacingDirection());
+                program.SpawnBullet(position, GetFacingDirection());
             }
         }
 
@@ -73,7 +72,7 @@ namespace Asteroids
 
             Raylib.DrawTexturePro(texture,
                                   new Rectangle(0, 0, texture.width, texture.height),
-                                  new Rectangle(pos.X, pos.Y, size.X, size.Y),
+                                  new Rectangle(position.X, position.Y, size.X, size.Y),
                                   new Vector2(0.5f * size.X, 0.5f * size.Y),
                                   rotation,
                                   Color.WHITE);

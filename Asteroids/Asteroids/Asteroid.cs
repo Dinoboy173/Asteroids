@@ -6,12 +6,10 @@ using Raylib_cs;
 
 namespace Asteroids
 {
-    class Asteroid
+    class Asteroid : GameObject
     {
         Program program;
 
-        public Vector2 pos = new Vector2();
-        public Vector2 dir = new Vector2();
         public float radius = 40;
 
         Color color;
@@ -19,11 +17,11 @@ namespace Asteroids
         static Color[] colours = new Color[6] { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PURPLE };
         static int nextColor = 0;
 
-        public Asteroid(Program program, Vector2 pos, Vector2 dir)
+        public Asteroid(Program program, Vector2 position, Vector2 direction)
         {
             this.program = program;
-            this.pos = pos;
-            this.dir = dir;
+            this.position = position;
+            this.direction = direction;
 
             color = colours[nextColor];
             nextColor += 1;
@@ -33,17 +31,17 @@ namespace Asteroids
 
         public void Update()
         {
-            pos += dir;
+            position += direction;
 
-            if (pos.X < 0) pos.X = program.windowWidth;
-            if (pos.X > program.windowWidth) pos.X = 0;
-            if (pos.Y < 0) pos.Y = program.windowHeight;
-            if (pos.Y > program.windowHeight) pos.Y = 0;
+            if (position.X < 0) position.X = program.windowWidth;
+            if (position.X > program.windowWidth) position.X = 0;
+            if (position.Y < 0) position.Y = program.windowHeight;
+            if (position.Y > program.windowHeight) position.Y = 0;
         }
 
         public void Draw()
         {
-            Raylib.DrawCircleLines((int)pos.X, (int)pos.Y, radius, color);
+            Raylib.DrawCircleLines((int)position.X, (int)position.Y, radius, color);
         }
     }
 }
